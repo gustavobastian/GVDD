@@ -1,0 +1,25 @@
+Creating DataBase
+1************
+use mongo_exercise
+
+db.movies.insertOne({title:"Fight Club",writer:"Chuck Palahniuk",year:1999,actors:['Brad Pitt','Edward Norton']})
+db.movies.insertOne({title:"Pulp Fiction",writer:"Quentin Tarantino",year:1994,actors:['John Travolta','Uma Thurman']})
+db.movies.insertOne({title:"Inglorious Bastards",writer:"Quentin Tarantino",year:2009,actors:['Brad Pitt','Diane Kruger','Eli Roth']})
+db.movies.insertOne({title:"The Hobbit: An Unexpected Journey",writer:"J.R.R Tolkein",year:2012,franchise:"The Hobbit"})
+db.movies.insertOne({title:"The Hobbit: The desolation of Smaug",writer:"J.R.R Tolkein",year:2013,franchise:"The Hobbit"})
+db.movies.insertOne({title:"The Hobbit: The Battle of the five Armies",writer:"J.R.R Tolkein",year:2012,franchise:"The Hobbit",synopsis : "Bilbo and Company are forced to engage in a war against an array of combatans and keep the Lonely Mountain from falling into the hands of a rising darkness."})
+db.movies.insertOne({title:"Pee Wee Herman's Big Adventure"})
+db.movies.insertOne({title:"Avatar"})
+2**************
+1)obtener todos los documentos
+db.movies.find().pretty()
+2)obtener todos los documentos con writer = "Quentin Tarantino"
+db.movies.find({writer:"Quentin Tarantino"}).pretty()
+3)db.movies.find({actors:"Brad Pitt"}).pretty()
+4)db.movies.find({franchise:"The Hobbit"}).pretty()
+5)db.movies.find({$and : [{"year":{$gte:1989}},{"year":{$lt:2000}}]}).pretty()
+6)db.movies.find({$and : [{"year":{$gte:2000}},{"year":{$lt:2010}}]}).pretty()
+3**************
+1)db.movies.updateOne({"title":"The Hobbit: An Unexpected Journey"},{$set :{synopsis: "A reluctant hobit, Bilbo Baggins, set out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."}})
+4**************
+1)db.movies.find({synopsis:{$regex:"Bilbo"}})
