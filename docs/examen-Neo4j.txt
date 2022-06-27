@@ -1,0 +1,114 @@
+borro relaciones
+MATCH (a:Autor)-[r]-() delete a,r;
+borro nodos
+MATCH (a) delete a;//borro todos los nodos
+MATCH (a:Comentario) delete a;//borro todos los nodos
+MATCH (a:Noticia) delete a;//borro todos los nodos
+
+Creating DataBase
+
+Autor :
+CREATE 
+ (A: Autor { nombre: "Gustavo", username:"Gus", twitter: "gustavo.corrado@gmail.com", telefono: "3425566444"} ),
+ (B: Autor { nombre: "Ger", username:"Ger", twitter: "ger.corrado@gmail.com", telefono: "34233566444"} ),
+ (C: Autor { nombre: "Lau", username:"Lau", twitter: "Lau.corrado@gmail.com" } ),
+ (C2: Autor { nombre: "Marie", username:"Marie", twitter: "Marie.corrado@gmail.com"} );
+
+CREATE  
+ (C2: Autor { nombre: "Marie", username:"Marie", twitter: "Marie.corrado@gmail.com"} );
+
+CREATE   
+  (C2: Autor { nombre: "Laro", username:"Laro", twitter: "Laro.corrado@gmail.com"} );
+ 
+CREATE CONSTRAINT ON (p:Autor) ASSERT p.twitter is UNIQUE; 	
+CREATE CONSTRAINT unique1 FOR (p:Autor) REQUIRE p.twitter IS UNIQUE;
+CREATE CONSTRAINT unique2 FOR (p:Autor) REQUIRE p.username IS UNIQUE;
+
+CREATE 
+ (A: Autor { nombre: "Miguel Corrado", username:"AS", twitter: "miguel.corrado@gmail.com"} );
+ 	
+ 
+CREATE 
+ (N: Noticia {id: 1, titulo: "Gustavo esta", cuerpo:"Gus existe en este universo", fecha: "1/1/2019"} ),
+ (N2: Noticia {id:2, titulo: "El naufragio", cuerpo:"La nave perdida se encontro a 7000 mts de profundidad ", fecha: "1/1/2021"} ),
+ (N3: Noticia {id:3, titulo: "El naufragio2", cuerpo:"La nave perdida se encontro a 27000 mts de profundidad ", fecha: "1/10/2022"} );
+ 
+CREATE 
+ (N5: Noticia {id: 4, titulo: "El hombre llego a pluton", cuerpo:"El día de ayer por primera vez se puso un pie en ese remoto planeta", fecha: "1/4/2016"} ),
+ (N6: Noticia {id:5, titulo: "El avion", cuerpo:"El avion arribo en la fecha esperada", fecha: "1/10/2020"} ),
+ (N7: Noticia {id:6, titulo: "El tornado", cuerpo:"La nave perdida se encontro con un tornado", fecha: "1/3/2019"} ); 
+ 
+ CREATE 
+ (N8: Noticia {id: 7, titulo: "El hombre llego a pluton nuevamente", cuerpo:"El día de ayer por segunda vez se puso un pie en ese remoto planeta", fecha: "3/4/2016"} ),
+ (N6: Noticia {id:8, titulo: "El bote", cuerpo:"El bote zarpó en la fecha esperada", fecha: "1/10/2020"} ),
+ (N7: Noticia {id:9, titulo: "La lluvia", cuerpo:"La lluvia se detuvo.", fecha: "1/3/2019"} ); 
+ 
+ 
+ 
+CREATE 
+ (C: Comentario { id:1, comentario: "Gustavo esta bueno", fecha: "1/1/2001"} ),
+ (C2: Comentario { id: 2, comentario: "Que peligro", fecha: "2/1/2001"} );
+ 
+ 
+ 
+Relacion REDACTO
+
+MATCH (s: Autor { username: "Gus"}), (e1: Noticia { titulo: "Gustavo esta"} ) CREATE (s)-[R:REDACTO]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Ger"}), (e1: Noticia { titulo: "El naufragio"} ) CREATE (s)-[R:REDACTO]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Gus"}), (e1: Noticia { titulo: "El naufragio2"} ) CREATE (s)-[R:REDACTO]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Gus"}), (e1: Noticia { titulo: "El avion"} ) CREATE (s)-[R:REDACTO]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Gus"}), (e1: Noticia { titulo: "El tornado"} ) CREATE (s)-[R:REDACTO]->(e1) return s,R,e1;
+
+MATCH (s: Autor { username: "Laro"}), (e1: Noticia { id: 7} ) CREATE (s)-[R:REDACTO]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Laro"}), (e1: Noticia { id: 8} ) CREATE (s)-[R:REDACTO]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Laro"}), (e1: Noticia { id: 9} ) CREATE (s)-[R:REDACTO]->(e1) return s,R,e1;
+
+Relacion Puntuo
+MATCH (s: Autor { username: "Lau"}), (e1: Noticia { titulo: "Gustavo esta"} ) CREATE (s)-[R:PUNTUA {nota:9}]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Lau"}), (e1: Noticia { titulo: "El naufragio"} ) CREATE (s)-[R:PUNTUA {nota:7}]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Ger"}), (e1: Noticia { id: 4} ) CREATE (s)-[R:PUNTUA {nota:4}]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Ger"}), (e1: Noticia { id: 5} ) CREATE (s)-[R:PUNTUA {nota:4}]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Ger"}), (e1: Noticia { id: 6} ) CREATE (s)-[R:PUNTUA {nota:4}]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Marie"}), (e1: Noticia { id: 4} ) CREATE (s)-[R:PUNTUA {nota:5}]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Marie"}), (e1: Noticia { id: 5} ) CREATE (s)-[R:PUNTUA {nota:5}]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Marie"}), (e1: Noticia { id: 6} ) CREATE (s)-[R:PUNTUA {nota:4}]->(e1) return s,R,e1;
+
+Relacion Comento
+MATCH (s: Autor { username: "Lau"}), (e1: Comentario {id:1}} ) CREATE (s)-[R:COMENTO]->(e1) return s,R,e1;
+MATCH (s: Autor { username: "Lau"}), (e1: Comentario {id:2}} ) CREATE (s)-[R:COMENTO]->(e1) return s,R,e1;
+
+Relacion Comentarios
+MATCH (N:Noticia  { id: 2}), (e1: Comentario {id:2}} ) CREATE (N)-[R:COMENTARIOS]->(e1) return s,R,e1;
+MATCH (N:Noticia  { id: 1}), (e1: Comentario {id:1}} ) CREATE (N)-[R:COMENTARIOS]->(e1) return s,R,e1;
+
+Preguntas:
+a)
+MATCH (N:Noticia)
+WHERE N.titulo =~".*o"
+RETURN N
+b)
+MATCH (b:Autor)
+WHERE b.tel <>0 
+RETURN b
+c)
+MATCH (b:Autor)
+WHERE b.tel <>0 OR b.nombre Contains "Miguel"
+RETURN b
+d)
+MATCH (N:Noticia)
+WITH [item in split(N.fecha, "/") | toInteger(item)] AS dateComponents, N as Nb
+WHERE dateComponents[1]=3 OR dateComponents[1]=4
+RETURN Nb
+e)
+MATCH (N:Noticia)
+WITH [item in split(N.fecha, "/") | toInteger(item)] AS dateComponents, N as Nb
+WHERE dateComponents[2]=2020 OR dateComponents[2]=2019
+RETURN Nb
+f)
+MATCH p=()-[r:PUNTUA]->()  WHERE r.nota=4 RETURN p LIMIT 25
+g)
+MATCH (p:Autor {nombre:"Laro"})-[r:REDACTO]->(d:Noticia)
+WITH [item in split(d.fecha, "/") | toInteger(item)] AS dateComponents, d as Nb
+WHERE dateComponents[2]=2020
+return d
+
